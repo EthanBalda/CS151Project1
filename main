@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib> // for srand and rand
+#include <ctime>   // for time
+
+int main() {
+    // Step 1: Create an empty vector of int elements
+    std::vector<int> numbers;
+
+    // Step 2: Use srand to seed the random number generator
+    std::srand(static_cast<unsigned>(std::time(0)));
+
+    // Step 3: Generate 30 random whole numbers between 1 and 10 and insert them into the vector
+    for (int i = 0; i < 30; ++i) {
+        int randomNumber = (std::rand() % 10) + 1; // Generate a number between 1 and 10
+
+        // Find the correct position to insert the random number in descending order
+        auto it = numbers.begin();
+        while (it != numbers.end() && *it >= randomNumber) {
+            ++it;
+        }
+
+        // Insert the number at the found position
+        numbers.insert(it, randomNumber);
+    }
+
+    // Step 4: Print the numbers in ascending order using back and pop_back
+    std::cout << "Numbers in ascending order: ";
+    while (!numbers.empty()) {
+        std::cout << numbers.back() << " ";
+        numbers.pop_back();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
